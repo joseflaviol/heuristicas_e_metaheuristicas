@@ -37,6 +37,13 @@ def carrega_itens(nome_arq):
 
     return (itens, capacidade_da_mochila, numero_de_itens) 
 
+def aleatoriedade(n):
+    if n < 1000:
+        return 5
+    if n < 5000:
+        return 2
+    return 1
+
 def construtiva(itens_ordenados, capacidade_da_mochila, numero_de_itens):
     
     capacidade_utilizada = 0
@@ -45,10 +52,10 @@ def construtiva(itens_ordenados, capacidade_da_mochila, numero_de_itens):
     max_heap = MaxHeap(len(itens_ordenados))
     max_heap.tamanho = len(itens_ordenados)
     max_heap.heap = itens_ordenados.copy()
-
+    a = aleatoriedade(numero_de_itens) / 100
 
     while max_heap.tamanho > 0:
-        pct = int((max_heap.tamanho * 2) / 100)
+        pct = int(max_heap.tamanho * a)
         
         if pct == 0:
             pct += 1
@@ -66,7 +73,7 @@ def construtiva(itens_ordenados, capacidade_da_mochila, numero_de_itens):
 
 def busca_local(itens, s, beneficio, peso):
     
-    for i in range((60 * len(itens)) // 100):
+    for i in range((43 * len(itens)) // 100):
         j = np.random.randint(len(itens)) 
         if s[j] == 1:
             beneficio -= itens[j].beneficio
