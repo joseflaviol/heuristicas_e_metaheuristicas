@@ -39,7 +39,7 @@ def carrega_itens(nome_arq):
 
 def aleatoriedade(n):
     if n < 1000:
-        return 5
+        return 3
     if n < 5000:
         return 2
     return 1
@@ -73,18 +73,29 @@ def construtiva(itens_ordenados, capacidade_da_mochila, numero_de_itens):
 
 def busca_local(itens, s, beneficio, peso):
     
-    for i in range((43 * len(itens)) // 100):
-        j = np.random.randint(len(itens)) 
-        if s[j] == 1:
-            beneficio -= itens[j].beneficio
-            peso -= itens[j].peso 
-            s[j] = 0 
-        else:
-            beneficio += itens[j].beneficio
-            peso += itens[j].peso 
-            s[j] = 1
+    aux_beneficio = beneficio
+    aux_peso = peso 
+    aux_s = s.copy()
 
-    return (s, beneficio, peso)     
+    for i in range(100):
+        for j in range(20):
+            k = np.random.randint(len(itens))
+            if s[k] == 1:
+                s[k] = 0
+                aux_beneficio -= itens[k].beneficio
+                aux_peso -= itens[k].peso
+            else:
+                s[k] = 1
+                aux_beneficio += itens[k].beneficio
+                aux_peso += itens[k].peso
+
+        if aux_beneficio > beneficio:
+            beneficio = aux_beneficio
+            peso = aux_peso
+            s = aux_s 
+        aux_s = s.copy()
+
+    return (s, beneficio, peso)
 
 def grasp(itens, itens_ordenados, capacidade_da_mochila):
     x, beneficio_x, peso_x = construtiva(itens_ordenados, capacidade_da_mochila, len(itens))
