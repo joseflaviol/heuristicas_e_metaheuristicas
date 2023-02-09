@@ -12,3 +12,6 @@ class Graph:
 
     def adj(self, u):
         return self.adj_list[u]
+    
+    def weight(self, u, v):
+        return self.adj_list[u][v]
