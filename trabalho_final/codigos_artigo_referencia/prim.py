@@ -11,7 +11,6 @@ def prim(g, d):
     T = []
     S = []
     U = list(range(g.v))
-    print(U)
 
     marcados = [0] * g.v
     grau = [0] * g.v
